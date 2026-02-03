@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import type { Product } from "../../types";
 import ProductCard from "../ProductDetail";
+import { Link } from "react-router-dom";
 
 
 const categoryDisplay = {
@@ -55,8 +56,7 @@ export default function CategoryProducts() {
       <div className="min-h-screen flex flex-col items-center justify-center px-4">
         <h1 className="text-4xl font-bold text-red-600 mb-4">Error</h1>
         <p className="text-xl text-gray-700 mb-8">{error}</p>
-        <Link
-          to="/categories"
+        <Link to="/categories"
           className="bg-blue-600 text-white py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors"
         >
           Ver todas las categorías

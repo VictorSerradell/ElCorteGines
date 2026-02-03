@@ -10,6 +10,7 @@ import { useCart } from "./context/CartContext";
 import ProductDetail from "./pages/ProductDetail";
 import Categories from "./pages/categories/Categories";
 import CategoryProducts from "./pages/categories/CategoryProducts";
+import Category from "./pages/categories/Category";
 
 function App() {
   const { state } = useCart();
@@ -28,10 +29,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/categories" element={<Categories />} />
-          <Route
-            path="/category/:categoryName"
-            element={<CategoryProducts />}
-          />
+          <Route path="/category/:category" element={<Category />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
