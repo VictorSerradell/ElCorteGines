@@ -1,62 +1,62 @@
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
-import CartModal from "./CartModal"; // ← nuevo import
+import CartModal from "./CartModal";
 
 export default function Header() {
   const { state } = useCart();
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   return (
-    <header>
-      <h1>El Corte Ginés</h1>
-      <nav>
-        <ul>
-          <li>
-            <a href="#">Inicio</a>
-          </li>
-          <li>
-            <a href="#">Hombre</a>
-          </li>
-          <li>
-            <a href="#">Mujer</a>
-          </li>
-          <li>
-            <a href="#">Electrónica</a>
-          </li>
-          <li>
-            <button
-              onClick={() => setIsCartOpen(true)}
-              style={{
-                background: "none",
-                border: "none",
-                color: "white",
-                font: "inherit",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                gap: "0.5rem",
-              }}
-            >
-              Carrito
-              {state.totalItems > 0 && (
-                <span
-                  style={{
-                    background: "red",
-                    color: "white",
-                    borderRadius: "50%",
-                    padding: "2px 8px",
-                    fontSize: "0.8rem",
-                  }}
-                >
-                  {state.totalItems}
-                </span>
-              )}
-            </button>
-          </li>
-        </ul>
-      </nav>
+    <>
+      <header className="bg-blue-700 text-white shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <h1 className="text-3xl font-bold tracking-tight">
+              El Corte Ginés
+            </h1>
+
+            <nav>
+              <ul className="flex flex-wrap justify-center gap-6 text-lg font-medium">
+                <li>
+                  <a href="#" className="hover:text-blue-200 transition-colors">
+                    Inicio
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-blue-200 transition-colors">
+                    Hombre
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-blue-200 transition-colors">
+                    Mujer
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-blue-200 transition-colors">
+                    Electrónica
+                  </a>
+                </li>
+                <li>
+                  <button
+                    onClick={() => setIsCartOpen(true)}
+                    className="flex items-center gap-2 hover:text-blue-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-300 rounded"
+                  >
+                    Carrito
+                    {state.totalItems > 0 && (
+                      <span className="bg-red-500 text-white text-xs font-bold px-2.5 py-1 rounded-full min-w-[1.5rem] text-center">
+                        {state.totalItems}
+                      </span>
+                    )}
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </header>
 
       <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-    </header>
+    </>
   );
 }

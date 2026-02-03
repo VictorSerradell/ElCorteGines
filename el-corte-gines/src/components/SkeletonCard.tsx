@@ -1,11 +1,11 @@
 export default function SkeletonCard() {
   return (
-    <div className="skeleton-card">
-      <div className="skeleton-image"></div>
-      <div className="skeleton-text">
-        <div className="skeleton-line title" style={{ width: `${70 + Math.random() * 25}%` }}></div>
-        <div className="skeleton-line description"></div>
-        <div className="skeleton-line price"></div>
+    <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm flex flex-col h-full animate-pulse">
+      <div className="aspect-square bg-gray-200" />
+      <div className="p-5 flex flex-col flex-grow space-y-3">
+        <div className="h-6 bg-gray-300 rounded w-4/5" />
+        <div className="h-5 bg-gray-300 rounded w-1/3" />
+        <div className="h-10 bg-gray-300 rounded mt-auto" />
       </div>
     </div>
   );

@@ -1,13 +1,7 @@
 import { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import SkeletonCard from "./SkeletonCard";
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-}
+import type { Product } from "../types";
 
 export default function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -27,32 +21,31 @@ export default function ProductList() {
         setLoading(false);
       }
     };
-
     fetchProducts();
   }, []);
 
   if (error) {
     return (
-      <p style={{ color: "red", textAlign: "center", padding: "3rem" }}>
+      <p className="text-center py-12 text-red-600 text-xl font-medium">
         Error: {error}
       </p>
     );
   }
 
   return (
-    <section>
-      <h2 style={{ marginBottom: "1.5rem", textAlign: "center" }}>
+    <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
         Productos Destacados
       </h2>
 
       {loading ? (
-        <div className="products-grid">
-          {[...Array(8)].map((_, index) => (
-            <SkeletonCard key={index} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {[...Array(8)].map((_, i) => (
+            <SkeletonCard key={i} />
           ))}
         </div>
       ) : (
-        <div className="products-grid fade-in">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate-fade-in">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
