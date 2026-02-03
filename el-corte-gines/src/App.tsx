@@ -7,6 +7,9 @@ import NotFound from "./pages/NotFound";
 import CartModal from "./components/CartModal";
 import { useState } from "react";
 import { useCart } from "./context/CartContext";
+import ProductDetail from "./pages/ProductDetail";
+import Categories from "./pages/categories/Categories";
+import CategoryProducts from "./pages/categories/CategoryProducts";
 
 function App() {
   const { state } = useCart();
@@ -22,14 +25,12 @@ function App() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/categories" element={<Categories />} />
           <Route
-            path="/cart"
-            element={
-              <>
-                <CartPage />
-                {/* Si quieres, puedes abrir el modal automáticamente al entrar en /cart */}
-              </>
-            }
+            path="/category/:categoryName"
+            element={<CategoryProducts />}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

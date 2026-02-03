@@ -19,22 +19,22 @@
               <nav>
                 <ul className="flex flex-wrap justify-center gap-6 text-lg font-medium">
                   <li>
-                    <Link href="#" className="hover:text-blue-200 transition-colors">
+                    <Link to="#" className="hover:text-blue-200 transition-colors">
                       Inicio
                     </Link>
                   </li>
                   <li>
-                    <Link href="#" className="hover:text-blue-200 transition-colors">
+                    <Link to="#" className="hover:text-blue-200 transition-colors">
                       Hombre
                     </Link>
                   </li>
                   <li>
-                    <Link href="#" className="hover:text-blue-200 transition-colors">
+                    <Link to="#" className="hover:text-blue-200 transition-colors">
                       Mujer
                     </Link>
                   </li>
                   <li>
-                    <Link href="#" className="hover:text-blue-200 transition-colors">
+                    <Link to="#" className="hover:text-blue-200 transition-colors">
                       Electrónica
                     </Link>
                   </li>
