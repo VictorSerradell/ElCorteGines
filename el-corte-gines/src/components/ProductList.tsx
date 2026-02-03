@@ -31,7 +31,6 @@ export default function ProductList() {
     fetchProducts();
   }, []);
 
-  // Si hay error mostramos mensaje, sino skeletons o productos
   if (error) {
     return (
       <p style={{ color: "red", textAlign: "center", padding: "3rem" }}>
@@ -53,7 +52,7 @@ export default function ProductList() {
           ))}
         </div>
       ) : (
-        <div className="products-grid">
+        <div className="products-grid fade-in">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

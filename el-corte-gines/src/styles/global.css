@@ -37,6 +37,7 @@ main {
 }
 
 .products-grid {
+  transition: opacity 0.4s ease;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1.5rem;
@@ -116,4 +117,58 @@ footer {
   100% {
     transform: translateX(100%);
   }
+}
+
+.fade-in {
+  animation: fadeIn 0.7s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Contenedor con transición */
+.products-wrapper {
+  position: relative;
+  min-height: 400px; /* Evita que la página se encoja mucho mientras carga */
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Estado durante loading */
+.products-wrapper.loading {
+  opacity: 0.7; /* Ligeramente más tenue para indicar que está cargando */
+}
+
+/* Estado cuando ya cargó */
+.products-wrapper.loaded {
+  opacity: 1;
+}
+
+/* Opcional: fade más pronunciado en los items individuales (más elegante) */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  opacity: 0;              /* Inicia invisible */
+  transform: translateY(10px); /* Pequeño desplazamiento hacia abajo */
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Cuando ya no está loading → fade in + slide up */
+.products-wrapper.loaded .products-grid {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Los skeletons no necesitan fade (ya tienen su shimmer) */
+.products-wrapper.loading .products-grid {
+  opacity: 1;
+  transform: translateY(0);
 }
