@@ -1,26 +1,21 @@
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
-  description?: string;
-}
+import { useCart } from "../context/CartContext";
+import { Product } from "../types"; // ajusta la ruta si es necesario
 
 interface Props {
   product: Product;
 }
 
 export default function ProductCard({ product }: Props) {
+  const { addToCart } = useCart();
+
   return (
     <div
       className="product-card"
-      style={{
-        border: "1px solid #ddd",
-        borderRadius: "8px",
-        overflow: "hidden",
-        background: "white",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-      }}
+      style={
+        {
+          /* tus estilos */
+        }
+      }
     >
       <img
         src={product.image}
@@ -40,6 +35,21 @@ export default function ProductCard({ product }: Props) {
         <p style={{ fontWeight: "bold", color: "#0071dc" }}>
           {product.price.toFixed(2)} €
         </p>
+
+        <button
+          onClick={() => addToCart(product)}
+          style={{
+            marginTop: "1rem",
+            padding: "0.5rem 1rem",
+            background: "#0071dc",
+            color: "white",
+            border: "none",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+        >
+          Añadir al carrito
+        </button>
       </div>
     </div>
   );

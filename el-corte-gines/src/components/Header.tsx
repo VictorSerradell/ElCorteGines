@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom"; // lo agregaremos después si usamos router
+import { useCart } from "../context/CartContext";
 
 export default function Header() {
+  const { state } = useCart();
+
   return (
     <header>
       <h1>El Corte Ginés</h1>
@@ -9,17 +11,23 @@ export default function Header() {
           <li>
             <a href="#">Inicio</a>
           </li>
+          {/* ... otros links */}
           <li>
-            <a href="#">Hombre</a>
-          </li>
-          <li>
-            <a href="#">Mujer</a>
-          </li>
-          <li>
-            <a href="#">Electrónica</a>
-          </li>
-          <li>
-            <a href="#">Contacto</a>
+            Carrito
+            {state.totalItems > 0 && (
+              <span
+                style={{
+                  background: "red",
+                  color: "white",
+                  borderRadius: "50%",
+                  padding: "2px 8px",
+                  fontSize: "0.8rem",
+                  marginLeft: "5px",
+                }}
+              >
+                {state.totalItems}
+              </span>
+            )}
           </li>
         </ul>
       </nav>
