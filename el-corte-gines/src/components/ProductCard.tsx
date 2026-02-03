@@ -1,5 +1,5 @@
 import { useCart } from "../context/CartContext";
-import { Product } from "../types"; // ajusta la ruta si es necesario
+import { Product } from "../types";
 
 interface Props {
   product: Product;
@@ -9,44 +9,24 @@ export default function ProductCard({ product }: Props) {
   const { addToCart } = useCart();
 
   return (
-    <div
-      className="product-card"
-      style={
-        {
-          /* tus estilos */
-        }
-      }
-    >
+    <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300">
       <img
         src={product.image}
         alt={product.title}
-        style={{
-          width: "100%",
-          height: "220px",
-          objectFit: "contain",
-          padding: "1rem",
-        }}
+        className="w-full h-56 object-contain p-4"
         loading="lazy"
       />
-      <div style={{ padding: "1rem" }}>
-        <h3 style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}>
+      <div className="p-4">
+        <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
           {product.title}
         </h3>
-        <p style={{ fontWeight: "bold", color: "#0071dc" }}>
+        <p className="text-xl font-bold text-blue-600">
           {product.price.toFixed(2)} €
         </p>
 
         <button
           onClick={() => addToCart(product)}
-          style={{
-            marginTop: "1rem",
-            padding: "0.5rem 1rem",
-            background: "#0071dc",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
+          className="mt-4 w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors"
         >
           Añadir al carrito
         </button>
