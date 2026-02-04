@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;     /* light: blanco */
+    --foreground: 222.2 84% 4.9%; /* light: casi negro */
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%; /* dark: gris muy oscuro */
+    --foreground: 0 0% 100%;      /* dark: blanco */
+  }
+
+  .light {
+    --background: 0 0% 100%;     /* light: blanco */
+    --foreground: 222.2 84% 4.9%; /* light: casi negro */
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    @apply min-h-screen antialiased;
+  }
+}
+
+.dark .bg-white {
+  @apply bg-gray-800;
+}
+
+.light .bg-gray-800 {
+  @apply bg-white;
+}

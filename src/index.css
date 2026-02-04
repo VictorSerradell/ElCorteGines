@@ -1,0 +1,138 @@
+/* src/index.css o styles/global.css */
+
+@layer base {
+  :root {
+    /* Colores base (oklch recomendado en 2025–2026) */
+    --color-bg: oklch(98% 0.015 240);          /* casi blanco, sutil azul-gris */
+    --color-text: oklch(20% 0.05 260);         /* gris muy oscuro */
+    --color-text-secondary: oklch(45% 0.05 260);
+    --color-primary: oklch(65% 0.25 260);      /* azul-violeta principal */
+    --color-primary-hover: oklch(58% 0.25 260);
+    --color-accent: oklch(70% 0.18 80);        /* verde o acento cálido si lo prefieres */
+
+    /* Modo oscuro (valores por defecto) */
+    --color-bg-dark: oklch(12% 0.02 240);
+    --color-text-dark: oklch(92% 0.02 260);
+    --color-text-secondary-dark: oklch(70% 0.03 260);
+
+    /* Variables de tipografía */
+    --font-sans: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+    /* Espaciado y sizing fluid */
+    --space-3xs: clamp(0.25rem, 0.5vw + 0.125rem, 0.375rem);
+    --space-xs:  clamp(0.5rem, 1vw + 0.25rem, 0.75rem);
+    --space-sm:  clamp(0.75rem, 1.5vw + 0.375rem, 1rem);
+    --space-md:  clamp(1rem, 2vw + 0.5rem, 1.5rem);
+    --space-lg:  clamp(1.5rem, 3vw + 0.75rem, 2rem);
+
+    /* Transiciones */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 400ms ease;
+
+    /* Sombras suaves */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  /* Modo claro explícito */
+  @media (prefers-color-scheme: light) {
+    :root {
+      --color-bg: oklch(99.5% 0.01 240);
+      --color-text: oklch(18% 0.04 260);
+      --color-text-secondary: oklch(40% 0.04 260);
+      --color-primary: oklch(62% 0.22 260);
+      --color-primary-hover: oklch(55% 0.22 260);
+    }
+  }
+
+  /* Modo oscuro explícito (prioridad sobre prefers si usas class) */
+  .dark {
+    --color-bg: var(--color-bg-dark);
+    --color-text: var(--color-text-dark);
+    --color-text-secondary: var(--color-text-secondary-dark);
+  }
+
+  /* Estilos base */
+  html {
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;          /* usa dvh en vez de vh para mobile */
+    background-color: var(--color-bg);
+  }
+
+  /* Tipografía fluida */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  h1 { font-size: clamp(2.5rem, 5vw + 1rem, 4rem); }
+  h2 { font-size: clamp(2rem, 4vw + 0.75rem, 3rem); }
+  h3 { font-size: clamp(1.5rem, 3vw + 0.5rem, 2.25rem); }
+
+  /* Enlaces */
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: var(--color-primary-hover);
+  }
+
+  /* Botones base */
+  button,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    padding: 0.6em 1.2em;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all var(--transition-base);
+  }
+
+  button:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  }
+
+  button:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
