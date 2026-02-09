@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import type { Product } from "../../types";
 import ProductCard from "../ProductDetail";
 import { Link } from "react-router-dom";
+import SkeletonCard from "../../components/SkeletonCard";
 
 
 const categoryDisplay = {
@@ -43,9 +44,14 @@ export default function CategoryProducts() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-xl text-gray-600">
-          Cargando productos de {decodeURIComponent(categoryName || "")}...
+      <div className="min-h-[60vh] flex flex-col items-center justify-center gap-8 px-4">
+        <div className="text-xl font-medium text-gray-700 dark:text-gray-300 animate-pulse">
+          Cargando {displayName}...
+        </div>
+        <div className="grid w-full grid-cols-1 gap-6 max-w-7xl sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {[...Array(8)].map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
         </div>
       </div>
     );
@@ -53,11 +59,11 @@ export default function CategoryProducts() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-4">
-        <h1 className="text-4xl font-bold text-red-600 mb-4">Error</h1>
-        <p className="text-xl text-gray-700 mb-8">{error}</p>
+      <div className="flex flex-col items-center justify-center min-h-screen px-4">
+        <h1 className="mb-4 text-4xl font-bold text-red-600">Error</h1>
+        <p className="mb-8 text-xl text-gray-700">{error}</p>
         <Link to="/categories"
-          className="bg-blue-600 text-white py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors"
+          className="px-8 py-3 text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
         >
           Ver todas las categorías
         </Link>
@@ -71,25 +77,25 @@ export default function CategoryProducts() {
     ] || decodeURIComponent(categoryName || "");
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="flex items-center justify-between mb-10 flex-wrap gap-4">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+    <div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
+        <h1 className="text-3xl font-bold text-gray-900 md:text-4xl">
           {displayName}
         </h1>
         <Link
           to="/categories"
-          className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-2"
+          className="flex items-center gap-2 font-medium text-blue-600 hover:text-blue-800"
         >
           ← Todas las categorías
         </Link>
       </div>
 
       {products.length === 0 ? (
-        <p className="text-center text-xl text-gray-600 py-16">
+        <p className="py-16 text-xl text-center text-gray-600">
           No hay productos en esta categoría por el momento.
         </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

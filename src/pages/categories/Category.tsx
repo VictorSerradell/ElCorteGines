@@ -45,7 +45,7 @@ export default function Category() {
   if (loading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="text-xl text-gray-600 animate-pulse">
+        <div className="text-xl text-gray-600 bg-background animate-pulse">
           Cargando productos de {displayName}...
         </div>
       </div>
@@ -55,11 +55,11 @@ export default function Category() {
   if (error) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center px-4">
-        <h2 className="text-3xl font-bold text-red-600 mb-4">Error</h2>
-        <p className="text-lg text-gray-700 mb-8">{error}</p>
+        <h2 className="mb-4 text-3xl font-bold text-red-600">Error</h2>
+        <p className="mb-8 text-lg text-gray-700">{error}</p>
         <Link
           to="/categories"
-          className="bg-blue-600 text-white py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors"
+          className="px-8 py-3 text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
         >
           Ver todas las categorías
         </Link>
@@ -68,27 +68,27 @@ export default function Category() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-10 gap-4">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+    <div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <div className="flex flex-col justify-between gap-4 mb-10 sm:flex-row sm:items-center">
+        <h1 className="text-3xl font-bold text-gray-900 md:text-4xl">
           {displayName}
         </h1>
         <Link
           to="/categories"
-          className="text-blue-600 hover:text-blue-800 font-medium flex items-center gap-2"
+          className="flex items-center gap-2 font-medium text-blue-600 hover:text-blue-800"
         >
           ← Volver a categorías
         </Link>
       </div>
 
       {products.length === 0 ? (
-        <p className="text-center text-xl text-gray-600 py-16">
+        <p className="py-16 text-xl text-center text-gray-600">
           No hay productos disponibles en esta categoría actualmente.
         </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} index={0} />
           ))}
         </div>
       )}

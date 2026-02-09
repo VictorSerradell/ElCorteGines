@@ -1,31 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: "class",
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}", 
+  ],
   theme: {
     extend: {
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        "eci-blue": "#0071dc",
+        "eci-red": "#e30613",
+        "eci-dark": "#333333",
+        "eci-gray": "#f5f5f5",
       },
     },
   },
   plugins: [],
-  
-};
-module.exports = {
-  theme: {
-    extend: {
-      animation: {
-        "fade-in-left": "fadeInLeft 0.4s ease-out forwards",
-      },
-      keyframes: {
-        fadeInLeft: {
-          "0%": { opacity: "0", transform: "translateX(-20px)" },
-          "100%": { opacity: "1", transform: "translateX(0)" },
-        },
-      },
-    },
-  },
-  // ...
 };

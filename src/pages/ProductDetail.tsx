@@ -26,7 +26,7 @@ export default function ProductDetail() {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+        const res = await fetch(`https://.com/products/${id}`);
         if (!res.ok) throw new Error("Producto no encontrado");
         const data = await res.json();
         setProduct(data);
@@ -42,8 +42,8 @@ export default function ProductDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-xl text-gray-600">
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-xl text-gray-600 animate-pulse">
           Cargando producto...
         </div>
       </div>
@@ -52,14 +52,14 @@ export default function ProductDetail() {
 
   if (error || !product) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-4">
-        <h1 className="text-4xl font-bold text-red-600 mb-4">Error</h1>
-        <p className="text-xl text-gray-700 mb-8">
+      <div className="flex flex-col items-center justify-center min-h-screen px-4">
+        <h1 className="mb-4 text-4xl font-bold text-red-600">Error</h1>
+        <p className="mb-8 text-xl text-gray-700">
           {error || "Producto no encontrado"}
         </p>
         <Link
           to="/"
-          className="bg-blue-600 text-white py-3 px-8 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+          className="px-8 py-3 font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
         >
           Volver a la tienda
         </Link>
@@ -68,17 +68,17 @@ export default function ProductDetail() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
+    <div className="max-w-6xl px-4 py-12 mx-auto">
       <Link
         to="/"
-        className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-8 font-medium"
+        className="inline-flex items-center mb-8 font-medium text-blue-600 hover:text-blue-800"
       >
         ← Volver a productos
       </Link>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
         {/* Imagen */}
-        <div className="bg-white p-8 rounded-2xl shadow-lg flex items-center justify-center border border-gray-200">
+        <div className="flex items-center justify-center p-8 bg-white border border-gray-200 shadow-lg rounded-2xl">
           <img
             src={product.image}
             alt={product.title}
@@ -88,10 +88,10 @@ export default function ProductDetail() {
 
         {/* Detalles */}
         <div className="flex flex-col">
-          <span className="text-sm text-gray-500 uppercase tracking-wide mb-2">
+          <span className="mb-2 text-sm tracking-wide text-gray-500 uppercase">
             {product.category}
           </span>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
             {product.title}
           </h1>
 
@@ -102,19 +102,19 @@ export default function ProductDetail() {
             <div className="flex items-center gap-1 text-yellow-500">
               <span className="text-2xl">★</span>
               <span className="text-xl font-medium">{product.rating.rate}</span>
-              <span className="text-gray-500 text-sm">
+              <span className="text-sm text-gray-500">
                 ({product.rating.count} reseñas)
               </span>
             </div>
           </div>
 
-          <p className="text-gray-700 text-lg leading-relaxed mb-8">
+          <p className="mb-8 text-lg leading-relaxed text-gray-700">
             {product.description}
           </p>
 
           <button
             onClick={() => addToCart(product)}
-            className="w-full md:w-auto bg-blue-600 text-white py-4 px-10 rounded-xl font-bold text-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all shadow-md hover:shadow-lg"
+            className="w-full px-10 py-4 text-lg font-bold text-white transition-all bg-blue-600 shadow-md md:w-auto rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 hover:shadow-lg"
           >
             Añadir al carrito
           </button>

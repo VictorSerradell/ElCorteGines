@@ -1,5 +1,9 @@
 /* src/index.css o styles/global.css */
-
+/* Swiper styles */
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+@import 'swiper/css/autoplay';
 @layer base {
   :root {
     /* Colores base (oklch recomendado en 2025–2026) */
@@ -72,6 +76,8 @@
     margin: 0;
     min-height: 100dvh;          /* usa dvh en vez de vh para mobile */
     background-color: var(--color-bg);
+    @apply min-h-screen antialiased bg-background text-foreground;
+
   }
 
   /* Tipografía fluida */

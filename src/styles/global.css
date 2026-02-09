@@ -1,4 +1,9 @@
 @import "tailwindcss";
+/* Swiper styles */
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+@import 'swiper/css/autoplay';
 
 @layer base {
   :root {
@@ -20,6 +25,7 @@
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     @apply min-h-screen antialiased;
+    
   }
 }
 

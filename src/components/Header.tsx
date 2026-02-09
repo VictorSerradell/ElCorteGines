@@ -1,4 +1,3 @@
-// src/components/Header.tsx
 import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 import CartModal from "./CartModal";
@@ -24,7 +23,7 @@ export default function Header() {
     }
   }, [darkMode]);
 
-  // Cerrar menú móvil al pasar a desktop
+  // Cerrar menú móvil al redimensionar a desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -37,32 +36,32 @@ export default function Header() {
 
   const menuItems = [
     { to: "/", label: "Inicio" },
-    { to: "/category/men's clothing", label: "Hombre" },
-    { to: "/category/women's clothing", label: "Mujer" },
-    { to: "/category/electronics", label: "Electrónica" },
+    { to: "/men", label: "Hombre" },
+    { to: "/women", label: "Mujer" },
+    { to: "/electronics", label: "Electrónica" },
     { to: "/categories", label: "Categorías" },
   ];
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md shadow-sm border-b border-gray-200 dark:border-gray-800 transition-colors">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+      <header className="sticky top-0 z-50 transition-colors border-b border-gray-200 shadow-sm bg-white/80 dark:bg-gray-950/80 backdrop-blur-md dark:border-gray-800">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link
               to="/"
-              className="text-xl md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              className="text-xl font-bold tracking-tight text-gray-900 transition-colors md:text-2xl dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
             >
               El Corte Ginés
             </Link>
 
             {/* Navegación desktop */}
-            <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+            <nav className="items-center hidden gap-6 md:flex lg:gap-8">
               {menuItems.map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  className="text-gray-700 transition-colors dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                 >
                   {item.label}
                 </Link>
@@ -88,7 +87,7 @@ export default function Header() {
               {/* Toggle Dark Mode */}
               <button
                 onClick={() => setDarkMode((prev) => !prev)}
-                className="p-2 rounded-full text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="p-2 text-gray-700 transition-colors rounded-full dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 aria-label={
                   darkMode ? "Activar modo claro" : "Activar modo oscuro"
                 }
@@ -100,7 +99,6 @@ export default function Header() {
                     stroke="currentColor"
                     strokeWidth="2"
                     viewBox="0 0 24 24"
-                    aria-hidden="true"
                   >
                     <path
                       strokeLinecap="round"
@@ -115,7 +113,6 @@ export default function Header() {
                     stroke="currentColor"
                     strokeWidth="2"
                     viewBox="0 0 24 24"
-                    aria-hidden="true"
                   >
                     <path
                       strokeLinecap="round"
@@ -126,16 +123,16 @@ export default function Header() {
                 )}
               </button>
 
-              {/* Botón hamburguesa */}
+              {/* Botón hamburguesa (móvil) */}
               <button
-                className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform duration-200"
+                className="p-2 text-gray-700 transition-transform duration-200 rounded-md md:hidden dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-expanded={isMenuOpen}
                 aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
               >
                 {isMenuOpen ? (
                   <svg
-                    className="w-6 h-6 transform transition-transform duration-300 rotate-0"
+                    className="w-6 h-6 transition-transform duration-300 transform rotate-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -168,7 +165,7 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Sidebar off-canvas desde la izquierda */}
+      {/* Menú móvil (sidebar) */}
       <div
         className={`
           fixed inset-y-0 left-0 z-50 w-4/5 max-w-xs bg-white dark:bg-gray-900 
@@ -178,14 +175,14 @@ export default function Header() {
         `}
       >
         <div className="flex flex-col h-full">
-          {/* Cabecera del menú */}
+          {/* Cabecera menú móvil */}
           <div className="flex items-center justify-between p-5 border-b border-gray-200 dark:border-gray-800">
             <span className="text-lg font-bold text-gray-900 dark:text-white">
               Menú
             </span>
             <button
               onClick={() => setIsMenuOpen(false)}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="p-2 transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               <svg
                 className="w-6 h-6"
@@ -203,8 +200,8 @@ export default function Header() {
             </button>
           </div>
 
-          {/* Links con fade-in + slide */}
-          <nav className="flex-1 px-5 py-8 flex flex-col gap-6 text-lg font-medium">
+          {/* Links con animación de entrada */}
+          <nav className="flex flex-col flex-1 gap-6 px-5 py-8 text-lg font-medium">
             {menuItems.map((item, index) => (
               <Link
                 key={item.to}
@@ -212,12 +209,8 @@ export default function Header() {
                 className={`
                   block text-gray-800 dark:text-gray-200 
                   hover:text-blue-600 dark:hover:text-blue-400 
-                  transition-all duration-400
-                  ${
-                    isMenuOpen
-                      ? "opacity-100 translate-x-0"
-                      : "opacity-0 -translate-x-6"
-                  }
+                  transition-all duration-400 transform
+                  ${isMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"}
                 `}
                 style={{ transitionDelay: `${index * 80}ms` }}
                 onClick={() => setIsMenuOpen(false)}
@@ -229,10 +222,10 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Backdrop (fondo oscuro al abrir menú) */}
+      {/* Backdrop para menú móvil */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity duration-300 md:hidden"
+          className="fixed inset-0 z-40 transition-opacity duration-300 bg-black/50 backdrop-blur-sm md:hidden"
           onClick={() => setIsMenuOpen(false)}
           aria-hidden="true"
         />

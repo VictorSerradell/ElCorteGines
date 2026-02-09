@@ -1,5 +1,5 @@
-import CategoryProducts from "./categories/CategoryProducts";
+import CategoryProducts from "./CategoryProducts";
 
 export default function Men() {
-  return <CategoryProducts />; // o personaliza con category="men's clothing"
+  return <CategoryProducts categoryName="men's clothing" />;
 }
