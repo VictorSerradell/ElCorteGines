@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -74,7 +73,3 @@ export default defineConfig([
   },
 ])
 ```
-=======
-# ElCorteGines
-ElCorteGines es una copia de una web de venta de articulos, para el desarrollo se usará React.js en el FrontEnd y Node.js en el BackEnd.
->>>>>>> 4164c61e6244e061ca4b4c0154aac99adb2a8206

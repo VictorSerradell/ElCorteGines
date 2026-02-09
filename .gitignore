@@ -1,5 +1,9 @@
 node_modules/
+<<<<<<< HEAD
 .vite/
 dist/
 .env
 *.log
+=======
+.DS_Store
+>>>>>>> 4164c61e6244e061ca4b4c0154aac99adb2a8206

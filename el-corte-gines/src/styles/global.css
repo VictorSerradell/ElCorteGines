@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+/* Solo estilos muy globales o que no se cubran con Tailwind */
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 font-sans antialiased;
+  }
+}
+
+/* Si tienes animaciones custom o keyframes, mantenlos aquí */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
