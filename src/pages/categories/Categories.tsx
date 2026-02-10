@@ -36,25 +36,26 @@ const categories = [
   },
 ];
 
+// Tipado explícito para variants con stagger (custom)
 const cardVariants = {
-  hidden: { opacity: 0, y: 60, scale: 0.92 },
-  visible: {
+  hidden: { opacity: 0, y: 50, scale: 0.94 },
+  visible: (i: number) => ({
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      delay: (i: number) => i * 0.08,
+      delay: i * 0.1,
       duration: 0.7,
-      ease: "easeOut",
+      ease: "easeOut" as const,
     },
-  },
+  }),
   hover: {
     y: -12,
     scale: 1.04,
     boxShadow: "0 20px 40px rgba(0,0,0,0.12)",
-    transition: { duration: 0.4, ease: "easeOut" },
+    transition: { duration: 0.4, ease: "easeOut" as const },
   },
-};
+} as const; // 'as const' ayuda a TS a no quejarse del tipo de función
 
 export default function Categories() {
   return (
