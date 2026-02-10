@@ -1,12 +1,14 @@
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import type { Product } from "../types";
 
 interface Props {
   product: Product;
   index: number;
 }
+
 
 const cardVariants = {
   hidden: { opacity: 0, y: 60, scale: 0.92 },
@@ -17,20 +19,23 @@ const cardVariants = {
     transition: {
       delay: i * 0.08,
       duration: 0.7,
-      ease: "easeOut",
+      ease: "easeOut" as const,
     },
   }),
   hover: {
     y: -12,
     scale: 1.02,
     boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
-    transition: { duration: 0.35, ease: "easeOut" },
+    transition: { duration: 0.35, ease: "easeOut" as const },
   },
-};
+} satisfies Variants;
 
 const imageVariants = {
-  hover: { scale: 1.05, transition: { duration: 0.6, ease: "easeOut" } },
-};
+  hover: {
+    scale: 1.05,
+    transition: { duration: 0.6, ease: "easeOut" as const },
+  },
+} satisfies Variants;
 
 export default function ProductCard({ product, index }: Props) {
   const { addToCart } = useCart();
@@ -129,7 +134,7 @@ export default function ProductCard({ product, index }: Props) {
               addToCart(product);
             }}
             aria-label={`Añadir ${product.title} al carrito`}
-            className="relative w-full px-6 py-4 overflow-hidden text-lg font-semibold text-white transition-all duration-300 shadow-lg  bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 dark:from-blue-500 dark:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 rounded-xl hover:shadow-xl"
+            className="relative w-full px-6 py-4 overflow-hidden text-lg font-semibold text-white transition-all duration-300 shadow-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 dark:from-blue-500 dark:to-blue-600 dark:hover:from-blue-600 dark:hover:to-blue-700 rounded-xl hover:shadow-xl"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.96 }}
           >
