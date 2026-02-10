@@ -3,7 +3,11 @@ import ProductCard from "./ProductCard";
 import SkeletonCard from "./SkeletonCard";
 import type { Product } from "../types";
 
-export default function ProductList() {
+interface ProductListProps {
+  searchQuery?: string; // opcional, para que no rompa si no se pasa
+}
+
+export default function ProductList( { searchQuery = "" }: ProductListProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -11,7 +15,7 @@ export default function ProductList() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("https://fakestoreapi.com/products?limit=8");
+        const res = await fetch(`https://fakestoreapi.com/products?limit=12&search=${searchQuery}`);
         if (!res.ok) throw new Error("Error al cargar productos");
         const data = await res.json();
         setProducts(data);
