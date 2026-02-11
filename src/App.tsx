@@ -11,6 +11,7 @@ import Electronics from "./pages/Electronics";
 import Men from "./pages/Men";
 import Women from "./pages/Women";
 import Checkout from "./components/Checkout";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,6 +38,7 @@ function App() {
               <Route path="/categories" element={<Categories />} />
               <Route path="/category/:category"element={<CategoryProducts />}/>
               <Route path="/checkout" element={<Checkout />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
           <Footer />
