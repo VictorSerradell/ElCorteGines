@@ -1,3 +1,4 @@
+// src/components/CartModal.tsx
 import { useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useCart } from "../context/CartContext";
@@ -8,10 +9,14 @@ interface CartModalProps {
 }
 
 export default function CartModal({ isOpen, onClose }: CartModalProps) {
-  const { state, removeFromCart, updateQuantity } = useCart(); // ← destructuramos aquí (clave)
+  const { state, removeFromCart, updateQuantity } = useCart();
+
+  // Debug: mira en consola qué devuelve useCart
+  console.log("CartModal - state:", state);
+  console.log("CartModal - cart length:", state?.cart?.length);
+
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Cerrar con tecla Esc
   useEffect(() => {
     if (!isOpen) return;
 
@@ -22,67 +27,32 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [isOpen, onClose]);
 
-  // Focus trap básico (mejora accesibilidad)
-  useEffect(() => {
-    if (!isOpen || !modalRef.current) return;
-
-    const modal = modalRef.current;
-    const focusable = modal.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-    );
-    const first = focusable[0] as HTMLElement;
-    const last = focusable[focusable.length - 1] as HTMLElement;
-
-    const trap = (e: KeyboardEvent) => {
-      if (e.key === "Tab") {
-        if (e.shiftKey) {
-          if (document.activeElement === first) {
-            last.focus();
-            e.preventDefault();
-          }
-        } else {
-          if (document.activeElement === last) {
-            first.focus();
-            e.preventDefault();
-          }
-        }
-      }
-    };
-
-    modal.addEventListener("keydown", trap);
-    first?.focus();
-
-    return () => modal.removeEventListener("keydown", trap);
-  }, [isOpen]);
-
   if (!isOpen) return null;
 
   return createPortal(
     <>
-      {/* Backdrop borroso */}
       <div
-        className="fixed inset-0 z-50 transition-opacity duration-300 bg-black/60 backdrop-blur-sm"
+        className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Modal */}
       <div
         ref={modalRef}
-        className="fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300"
+        className="fixed inset-0 z-50 flex items-center justify-center p-4"
         role="dialog"
         aria-modal="true"
         aria-labelledby="cart-modal-title"
         tabIndex={-1}
       >
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-100">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
           {/* Header */}
           <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700">
             <h2
               id="cart-modal-title"
               className="text-2xl font-bold text-gray-900 dark:text-white"
             >
-              Tu Carrito ({state.cart.length})
+              Tu Carrito ({state?.cart?.length || 0})
             </h2>
             <button
               onClick={onClose}
@@ -95,7 +65,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
 
           {/* Contenido */}
           <div className="p-6 space-y-6">
-            {state.cart.length === 0 ? (
+            {state?.cart?.length === 0 || !state ? (
               <p className="py-12 text-lg text-center text-gray-600 dark:text-gray-400">
                 El carrito está vacío. ¡Añade productos!
               </p>
@@ -177,6 +147,8 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
             </button>
           </div>
         </div>
+        console.log("CartModal renderizado - isOpen:", isOpen);
+        console.log("state.cart:", state.cart);
       </div>
     </>,
     document.body,
