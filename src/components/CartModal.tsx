@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react"; // ← añadimos useEffect para Esc y focus
+import { useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useCart } from "../context/CartContext";
 
@@ -8,81 +8,81 @@ interface CartModalProps {
 }
 
 export default function CartModal({ isOpen, onClose }: CartModalProps) {
-  const { state, removeFromCart, updateQuantity } = useCart(); // ← destructuramos aquí
+  const { state, removeFromCart, updateQuantity } = useCart(); // ← destructuramos aquí (clave)
   const modalRef = useRef<HTMLDivElement>(null);
 
   // Cerrar con tecla Esc
   useEffect(() => {
+    if (!isOpen) return;
+
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
-  }, [onClose]);
+  }, [isOpen, onClose]);
 
-  // Focus trap básico (opcional pero mejora accesibilidad)
+  // Focus trap básico (mejora accesibilidad)
   useEffect(() => {
     if (!isOpen || !modalRef.current) return;
 
     const modal = modalRef.current;
-    const focusableElements = modal.querySelectorAll(
+    const focusable = modal.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
     );
-    const firstElement = focusableElements[0] as HTMLElement;
-    const lastElement = focusableElements[
-      focusableElements.length - 1
-    ] as HTMLElement;
+    const first = focusable[0] as HTMLElement;
+    const last = focusable[focusable.length - 1] as HTMLElement;
 
-    const trapFocus = (e: KeyboardEvent) => {
+    const trap = (e: KeyboardEvent) => {
       if (e.key === "Tab") {
         if (e.shiftKey) {
-          if (document.activeElement === firstElement) {
-            lastElement.focus();
+          if (document.activeElement === first) {
+            last.focus();
             e.preventDefault();
           }
         } else {
-          if (document.activeElement === lastElement) {
-            firstElement.focus();
+          if (document.activeElement === last) {
+            first.focus();
             e.preventDefault();
           }
         }
       }
     };
 
-    modal.addEventListener("keydown", trapFocus);
-    firstElement?.focus(); // foco inicial
+    modal.addEventListener("keydown", trap);
+    first?.focus();
 
-    return () => modal.removeEventListener("keydown", trapFocus);
+    return () => modal.removeEventListener("keydown", trap);
   }, [isOpen]);
 
   if (!isOpen) return null;
 
   return createPortal(
     <>
-      {/* Backdrop (borroso) */}
+      {/* Backdrop borroso */}
       <div
-        className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+        className="fixed inset-0 z-50 transition-opacity duration-300 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Modal content */}
+      {/* Modal */}
       <div
         ref={modalRef}
-        className="fixed inset-0 z-50 flex items-center justify-center p-4"
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-300"
         role="dialog"
         aria-modal="true"
         aria-labelledby="cart-modal-title"
         tabIndex={-1}
       >
-        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto transform transition-all duration-300 scale-100">
           {/* Header */}
           <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700">
             <h2
               id="cart-modal-title"
               className="text-2xl font-bold text-gray-900 dark:text-white"
             >
-              Tu Carrito
+              Tu Carrito ({state.cart.length})
             </h2>
             <button
               onClick={onClose}
@@ -97,7 +97,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
           <div className="p-6 space-y-6">
             {state.cart.length === 0 ? (
               <p className="py-12 text-lg text-center text-gray-600 dark:text-gray-400">
-                El carrito está vacío
+                El carrito está vacío. ¡Añade productos!
               </p>
             ) : (
               <>
@@ -161,7 +161,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
             )}
           </div>
 
-          {/* Footer con botones */}
+          {/* Footer */}
           <div className="sticky bottom-0 flex gap-4 px-6 py-4 bg-white border-t border-gray-200 dark:bg-gray-900 dark:border-gray-700">
             <button
               onClick={onClose}
