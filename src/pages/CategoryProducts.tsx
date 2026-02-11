@@ -31,7 +31,7 @@ export default function CategoryProducts({
 }) {
   const { category } = useParams<{ category: string }>();
   const finalCategory = categoryName || category || "";
-
+  const displayName = getCategoryTitle(finalCategory);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -60,8 +60,7 @@ export default function CategoryProducts({
 
     fetchCategoryProducts();
   }, [finalCategory]);
-
-  const displayName = getCategoryTitle(finalCategory);
+  
   const bannerImage =
     categoryBanners[finalCategory.toLowerCase()] || categoryBanners.default;
 

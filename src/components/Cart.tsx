@@ -1,4 +1,4 @@
-// src/components/Cart.tsx
+
 import { useCart } from "../context/CartContext";
 import type { CartItem } from "../types"; // ← type-only import
 

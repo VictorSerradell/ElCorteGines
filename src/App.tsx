@@ -10,6 +10,7 @@ import CategoryProducts from "./pages/CategoryProducts";
 import Electronics from "./pages/Electronics";
 import Men from "./pages/Men";
 import Women from "./pages/Women";
+import Checkout from "./components/Checkout";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,11 +35,8 @@ function App() {
               <Route path="/women" element={<Women />} />
               <Route path="/electronics" element={<Electronics />} />
               <Route path="/categories" element={<Categories />} />
-              <Route
-                path="/category/:category"
-                element={<CategoryProducts />}
-              />
-              {/* Otras rutas */}
+              <Route path="/category/:category"element={<CategoryProducts />}/>
+              <Route path="/checkout" element={<Checkout />} />
             </Routes>
           </main>
           <Footer />

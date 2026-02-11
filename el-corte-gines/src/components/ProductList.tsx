@@ -8,6 +8,11 @@ export default function ProductList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  interface Props {
+  product: Product;
+  index?: number;
+}
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -26,28 +31,28 @@ export default function ProductList() {
 
   if (error) {
     return (
-      <p className="text-center py-12 text-red-600 text-xl font-medium">
+      <p className="py-12 text-xl font-medium text-center text-red-600">
         Error: {error}
       </p>
     );
   }
 
   return (
-    <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+    <section className="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      <h2 className="mb-8 text-3xl font-bold text-center text-gray-900">
         Productos Destacados
       </h2>
 
       {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {[...Array(8)].map((_, i) => (
             <SkeletonCard key={i} />
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate-fade-in">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 animate-fade-in">
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} index={0} />
           ))}
         </div>
       )}

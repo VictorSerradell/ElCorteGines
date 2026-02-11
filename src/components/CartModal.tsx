@@ -2,6 +2,7 @@
 import { useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useCart } from "../context/CartContext";
+import  { Link } from "react-router-dom";
 
 interface CartModalProps {
   isOpen: boolean;
@@ -143,12 +144,15 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
               disabled={state.cart.length === 0}
               className="flex-1 py-3 font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed dark:bg-blue-500 dark:hover:bg-blue-600"
             >
-              Finalizar compra
+              <Link
+                to="/checkout"
+                className="flex-1 py-3 font-medium text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed dark:bg-blue-500 dark:hover:bg-blue-600"
+              >
+                Finalizar compra
+              </Link>
             </button>
           </div>
         </div>
-        console.log("CartModal renderizado - isOpen:", isOpen);
-        console.log("state.cart:", state.cart);
       </div>
     </>,
     document.body,

@@ -1,5 +1,4 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-// src/components/Cart.tsx
 import { useCart } from "../context/CartContext";
 export default function Cart() {
     const { state, removeFromCart, updateQuantity } = useCart();

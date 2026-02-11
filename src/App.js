@@ -1,0 +1,26 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { CartProvider } from "./context/CartContext";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import CartPage from "./pages/CartPage";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Categories from "./pages/categories/Categories";
+import CategoryProducts from "./pages/CategoryProducts";
+import Electronics from "./pages/Electronics";
+import Men from "./pages/Men";
+import Women from "./pages/Women";
+import Checkout from "./components/Checkout";
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            retry: 1,
+            refetchOnWindowFocus: false,
+        },
+    },
+});
+function App() {
+    return (_jsx(QueryClientProvider, { client: queryClient, children: _jsx(CartProvider, { children: _jsxs("div", { className: "flex flex-col min-h-screen bg-background text-foreground", children: [_jsx(Header, {}), _jsx("main", { className: "flex-grow", children: _jsxs(Routes, { children: [_jsx(Route, { path: "/", element: _jsx(Home, {}) }), _jsx(Route, { path: "/cart", element: _jsx(CartPage, {}) }), _jsx(Route, { path: "/men", element: _jsx(Men, {}) }), _jsx(Route, { path: "/women", element: _jsx(Women, {}) }), _jsx(Route, { path: "/electronics", element: _jsx(Electronics, {}) }), _jsx(Route, { path: "/categories", element: _jsx(Categories, {}) }), _jsx(Route, { path: "/category/:category", element: _jsx(CategoryProducts, {}) }), _jsx(Route, { path: "/checkout", element: _jsx(Checkout, {}) })] }) }), _jsx(Footer, {})] }) }) }));
+}
+export default App;
